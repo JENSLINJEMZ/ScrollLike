@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* ---------- style.css – ULTIMATE EDITION ---------- */
+    /* ---------- style.css – ULTIMATE EDITION (PURE & MINIMAL) ---------- */
     
     :root {
       --bg-primary: #0a0a0f;
@@ -446,53 +446,7 @@
       transform: scale(1.1);
     }
 
-    /* image overlay with comment, save, share buttons */
-    .img-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2rem;
-      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.9));
-      transform: translateY(100%);
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 3;
-    }
-
-    .post-card:hover .img-overlay {
-      transform: translateY(0);
-    }
-
-    .overlay-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-    }
-
-    .overlay-btn {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      font-size: 1.2rem;
-    }
-
-    .overlay-btn:hover {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      transform: scale(1.1) rotate(360deg);
-      border-color: transparent;
-      box-shadow: 0 0 20px var(--accent-1);
-    }
-
-    /* author info moved to bottom */
+    /* author info moved to top left of image */
     .author-info {
       position: absolute;
       top: 1rem;
@@ -537,7 +491,7 @@
       font-size: 0.8rem;
     }
 
-    /* post content */
+    /* post content - ONLY like button */
     .post-content {
       padding: 2rem;
       position: relative;
@@ -555,25 +509,13 @@
       color: transparent;
     }
 
-    /* interaction bar - now only like button */
-    .interaction-bar {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .like-section {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
+    /* only like button - no other icons */
     .like-btn {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.05);
       padding: 0.8rem 1.5rem;
       border-radius: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 1rem;
       cursor: pointer;
@@ -612,84 +554,6 @@
       color: white;
     }
 
-    /* comment section */
-    .comment-section {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .comment-input {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .comment-input input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 50px;
-      padding: 0.8rem 1.2rem;
-      color: white;
-      font-family: inherit;
-      transition: all 0.3s ease;
-    }
-
-    .comment-input input:focus {
-      outline: none;
-      border-color: var(--accent-1);
-      box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
-    }
-
-    .comment-input button {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .comment-input button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px var(--accent-1);
-    }
-
-    .comments-list {
-      margin-top: 1rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-    }
-
-    .post-card:hover .comments-list {
-      max-height: 200px;
-    }
-
-    .comment {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.5rem 0;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .comment-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-3), var(--accent-4));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
     /* floating action button */
     .fab {
       position: fixed;
@@ -715,22 +579,6 @@
       box-shadow: 0 20px 40px -5px var(--accent-2);
     }
 
-    /* tooltip */
-    .tooltip {
-      position: fixed;
-      background: rgba(18, 18, 26, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      color: white;
-      font-size: 0.9rem;
-      border: 1px solid var(--accent-1);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1000;
-    }
-
     /* responsive */
     @media (max-width: 768px) {
       .hero-title {
@@ -752,10 +600,6 @@
       .fab {
         bottom: 1rem;
         right: 1rem;
-      }
-      
-      .overlay-buttons {
-        justify-content: center;
       }
     }
   </style>
@@ -815,14 +659,11 @@
     <i class="fas fa-plus"></i>
   </div>
 
-  <!-- Tooltip -->
-  <div class="tooltip" id="tooltip"></div>
-
   <script>
-    // script.js – ULTIMATE EDITION with relocated buttons
+    // script.js – ULTIMATE EDITION (PURE & MINIMAL)
     
     (function() {
-      // ---------- ENHANCED POST DATA ----------
+      // ---------- POST DATA (pure & simple) ----------
       const posts = [
         {
           id: 1,
@@ -831,9 +672,7 @@
           author: 'cyber.pulse',
           date: '2h ago',
           likes: 1234,
-          comments: 89,
-          avatar: 'CP',
-          comments_list: ['love this vibe! 🔥', 'wallpaper worthy']
+          avatar: 'CP'
         },
         {
           id: 2,
@@ -842,9 +681,7 @@
           author: 'urban.shutter',
           date: '5h ago',
           likes: 892,
-          comments: 45,
-          avatar: 'US',
-          comments_list: ['the colors are insane', 'miss japan']
+          avatar: 'US'
         },
         {
           id: 3,
@@ -853,9 +690,7 @@
           author: 'dream.capture',
           date: '8h ago',
           likes: 2341,
-          comments: 156,
-          avatar: 'DC',
-          comments_list: ['ethereal indeed', 'new favorite']
+          avatar: 'DC'
         },
         {
           id: 4,
@@ -864,9 +699,7 @@
           author: 'ocean.eye',
           date: '12h ago',
           likes: 567,
-          comments: 34,
-          avatar: 'OE',
-          comments_list: ['so peaceful', 'where is this?']
+          avatar: 'OE'
         },
         {
           id: 5,
@@ -875,9 +708,7 @@
           author: 'street.pulse',
           date: '1d ago',
           likes: 3456,
-          comments: 234,
-          avatar: 'SP',
-          comments_list: ['cyberpunk vibes', '🔥🔥🔥']
+          avatar: 'SP'
         },
         {
           id: 6,
@@ -886,9 +717,7 @@
           author: 'vibes.only',
           date: '1d ago',
           likes: 789,
-          comments: 67,
-          avatar: 'VO',
-          comments_list: ['aesthetic overload', 'love the colors']
+          avatar: 'VO'
         }
       ];
 
@@ -975,7 +804,7 @@
       
       initParticleNetwork();
 
-      // ---------- CREATE POSTS (with relocated buttons) ----------
+      // ---------- CREATE POSTS (ONLY like button, no save/share) ----------
       function createPosts() {
         feed.innerHTML = '';
         
@@ -989,7 +818,7 @@
             <div class="img-container">
               <img class="post-img" src="${post.img}" alt="${post.caption}" loading="lazy">
               
-              <!-- Author info moved to top left of image -->
+              <!-- Author info at top left of image -->
               <div class="author-info">
                 <div class="author-avatar">${post.avatar}</div>
                 <div class="author-details">
@@ -997,50 +826,16 @@
                   <span class="post-date">${post.date}</span>
                 </div>
               </div>
-              
-              <!-- Overlay with comment, save, share buttons -->
-              <div class="img-overlay">
-                <div class="overlay-buttons">
-                  <button class="overlay-btn comment-btn" title="Comment">
-                    <i class="far fa-comment"></i>
-                  </button>
-                  <button class="overlay-btn save-btn" title="Save">
-                    <i class="far fa-bookmark"></i>
-                  </button>
-                  <button class="overlay-btn share-btn" title="Share">
-                    <i class="far fa-share-square"></i>
-                  </button>
-                </div>
-              </div>
             </div>
             
             <div class="post-content">
               <div class="caption">${post.caption}</div>
               
-              <div class="interaction-bar">
-                <div class="like-section">
-                  <button class="like-btn">
-                    <i class="far fa-heart heart-icon"></i>
-                    <span class="like-count">${post.likes.toLocaleString()}</span>
-                  </button>
-                  <span class="comment-count"><i class="far fa-comment"></i> ${post.comments}</span>
-                </div>
-              </div>
-              
-              <div class="comment-section">
-                <div class="comment-input">
-                  <input type="text" placeholder="Add a comment..." class="comment-field">
-                  <button class="send-comment"><i class="fas fa-paper-plane"></i></button>
-                </div>
-                <div class="comments-list">
-                  ${post.comments_list.map(comment => `
-                    <div class="comment">
-                      <div class="comment-avatar">👤</div>
-                      <span>${comment}</span>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
+              <!-- ONLY like button - no save, no share, no comment -->
+              <button class="like-btn">
+                <i class="far fa-heart heart-icon"></i>
+                <span class="like-count">${post.likes.toLocaleString()}</span>
+              </button>
             </div>
           `;
 
@@ -1068,7 +863,7 @@
             heartIcon.style.animation = 'heartExplode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5)';
             
             // create floating hearts
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 8; i++) {
               createFloatingHeart(this);
             }
             
@@ -1085,103 +880,6 @@
               let current = parseInt(likeCount.innerText.replace(',', ''));
               likeCount.innerText = (current - 1).toLocaleString();
             }
-          });
-        });
-
-        // Overlay buttons functionality
-        const commentBtns = document.querySelectorAll('.comment-btn');
-        const saveBtns = document.querySelectorAll('.save-btn');
-        const shareBtns = document.querySelectorAll('.share-btn');
-        
-        commentBtns.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const commentInput = this.closest('.post-card').querySelector('.comment-field');
-            commentInput.focus();
-            
-            // Visual feedback
-            this.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-              this.style.transform = '';
-            }, 200);
-          });
-        });
-        
-        saveBtns.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            icon.classList.toggle('far');
-            icon.classList.toggle('fas');
-            
-            if (icon.classList.contains('fas')) {
-              this.style.background = 'linear-gradient(135deg, var(--accent-3), var(--accent-4))';
-              showTooltip(this, 'Saved!');
-            } else {
-              this.style.background = '';
-              showTooltip(this, 'Removed');
-            }
-          });
-        });
-        
-        shareBtns.forEach(btn => {
-          btn.addEventListener('click', function() {
-            showTooltip(this, 'Link copied!');
-            
-            // Animation
-            this.style.transform = 'scale(1.2) rotate(360deg)';
-            setTimeout(() => {
-              this.style.transform = '';
-            }, 300);
-          });
-        });
-
-        // Comment functionality
-        const sendButtons = document.querySelectorAll('.send-comment');
-        sendButtons.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const input = this.parentElement.querySelector('.comment-field');
-            const commentText = input.value.trim();
-            
-            if (commentText) {
-              const commentsList = this.closest('.comment-section').querySelector('.comments-list');
-              const newComment = document.createElement('div');
-              newComment.className = 'comment';
-              newComment.innerHTML = `
-                <div class="comment-avatar">✨</div>
-                <span>${commentText}</span>
-              `;
-              commentsList.appendChild(newComment);
-              input.value = '';
-              
-              // animate new comment
-              newComment.style.animation = 'slideIn 0.3s ease';
-              
-              // Update comment count
-              const commentCount = this.closest('.post-card').querySelector('.comment-count');
-              const currentCount = parseInt(commentCount.innerText);
-              commentCount.innerHTML = `<i class="far fa-comment"></i> ${currentCount + 1}`;
-            }
-          });
-        });
-
-        // Tooltip functionality for overlay buttons
-        const overlayBtns = document.querySelectorAll('.overlay-btn');
-        const tooltip = document.getElementById('tooltip');
-        
-        overlayBtns.forEach(btn => {
-          btn.addEventListener('mouseenter', (e) => {
-            let text = '';
-            if (btn.classList.contains('comment-btn')) text = 'Comment';
-            if (btn.classList.contains('save-btn')) text = 'Save';
-            if (btn.classList.contains('share-btn')) text = 'Share';
-            
-            tooltip.style.opacity = '1';
-            tooltip.style.left = e.pageX + 'px';
-            tooltip.style.top = (e.pageY - 40) + 'px';
-            tooltip.textContent = text;
-          });
-          
-          btn.addEventListener('mouseleave', () => {
-            tooltip.style.opacity = '0';
           });
         });
 
@@ -1221,35 +919,31 @@
         heart.style.color = `hsl(${340 + Math.random() * 20}, 100%, 70%)`;
         heart.style.fontSize = (10 + Math.random() * 20) + 'px';
         heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '1000';
         heart.style.animation = `floatUp ${1 + Math.random()}s ease-out forwards`;
         
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes floatUp {
-            0% {
-              transform: translate(0, 0) scale(1);
-              opacity: 1;
+        // Create keyframes if not exists
+        if (!document.getElementById('floatUpKeyframes')) {
+          const style = document.createElement('style');
+          style.id = 'floatUpKeyframes';
+          style.textContent = `
+            @keyframes floatUp {
+              0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+              }
+              100% {
+                transform: translate(${(Math.random() - 0.5) * 100}px, -150px) scale(0);
+                opacity: 0;
+              }
             }
-            100% {
-              transform: translate(${(Math.random() - 0.5) * 100}px, -100px) scale(0);
-              opacity: 0;
-            }
-          }
-        `;
-        document.head.appendChild(style);
+          `;
+          document.head.appendChild(style);
+        }
         
+        element.style.position = 'relative';
         element.appendChild(heart);
         setTimeout(() => heart.remove(), 1500);
-      }
-
-      function showTooltip(element, message) {
-        const tooltip = document.getElementById('tooltip');
-        tooltip.style.opacity = '1';
-        tooltip.textContent = message;
-        
-        setTimeout(() => {
-          tooltip.style.opacity = '0';
-        }, 1500);
       }
 
       // FAB click animation
@@ -1273,22 +967,6 @@
 
       // Initialize everything
       createPosts();
-
-      // Add keyframe animation for slideIn
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `;
-      document.head.appendChild(style);
     })();
   </script>
 </body>
