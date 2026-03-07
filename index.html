@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollLike · where motion meets emotion</title>
+  
+  <!-- Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ---------- style.css – advanced animated masterpiece ---------- */
+    
+    /* modern reset with custom properties */
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --glass-bg: rgba(18, 18, 26, 0.7);
+      --accent-1: #ff6b9d;
+      --accent-2: #9d7bff;
+      --accent-3: #6ed4b0;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0c0;
+      --card-bg: #16161f;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --glow-color: rgba(157, 123, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* advanced animated background */
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(110, 212, 176, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 40% 80%, rgba(157, 123, 255, 0.08) 0%, transparent 50%);
+      filter: blur(60px);
+      z-index: -2;
+      animation: backgroundShift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundShift {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+      100% { transform: scale(1.2) rotate(2deg); opacity: 0.8; }
+    }
+
+    /* floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: floatParticle 15s infinite linear;
+    }
+
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+    }
+
+    /* ---------- STUNNING NAVBAR ---------- */
+    .navbar {
+      position: sticky;
+      top: 1.5rem;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 0 2rem;
+      margin: 0 auto;
+      max-width: 1400px;
+    }
+
+    .nav-content {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(18, 18, 26, 0.6);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-radius: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px rgba(255, 107, 157, 0.1) inset;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .nav-content:hover {
+      border-color: rgba(255, 107, 157, 0.3);
+      box-shadow: 0 30px 50px -20px rgba(157, 123, 255, 0.4),
+                  0 0 0 2px rgba(255, 107, 157, 0.2) inset;
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #ff6b9d, #9d7bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -1px;
+      position: relative;
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff6b9d, #9d7bff);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link:hover::before {
+      width: 70%;
+    }
+
+    .nav-icon {
+      background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(157, 123, 255, 0.2));
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .nav-icon:hover {
+      transform: rotate(90deg) scale(1.1);
+      border-color: #ff6b9d;
+      box-shadow: 0 0 20px #ff6b9d;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+      max-width: 1200px;
+      margin: 4rem auto 2rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroReveal 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #ff6b9d, #9d7bff, #6ed4b0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes heroReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5)); }
+      50% { filter: drop-shadow(0 0 20px rgba(157, 123, 255, 0.8)); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroReveal 1s 0.3s forwards;
+    }
+
+    /* ---------- ADVANCED FEED ---------- */
+    .feed {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      position: relative;
+    }
+
+    /* floating progress indicator */
+    .scroll-progress {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      z-index: 90;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(180deg, #ff6b9d, #9d7bff);
+      border-radius: 4px;
+      transition: height 0.1s ease;
+      box-shadow: 0 0 20px #ff6b9d;
+      animation: progressPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes progressPulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    /* ---------- SPECTACULAR POST CARDS ---------- */
+    .post-card {
+      position: relative;
+      background: var(--card-bg);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8),
+                  0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      transform-origin: center;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      transform: translateY(50px) scale(0.95);
+    }
+
+    .post-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* magnetic glow effect */
+    .post-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 40px;
+      padding: 2px;
+      background: linear-gradient(135deg, #ff6b9d, #9d7bff, #6ed4b0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .post-card:hover::before {
+      opacity: 1;
+    }
+
+    .post-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 50px 80px -30px rgba(157, 123, 255, 0.6);
+    }
+
+    /* image container with advanced hover */
+    .img-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #1e1e2a;
+    }
+
+    .img-container::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .post-card:hover .img-container::after {
+      opacity: 1;
+    }
+
+    .post-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .post-card:hover .post-img {
+      transform: scale(1.1);
+    }
+
+    /* image overlay with metadata */
+    .img-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 2;
+    }
+
+    .post-card:hover .img-overlay {
+      transform: translateY(0);
+    }
+
+    .overlay-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b9d, #9d7bff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      border: 2px solid white;
+    }
+
+    .author-name {
+      font-weight: 500;
+      color: white;
+    }
+
+    .post-date {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    /* post content */
+    .post-content {
+      padding: 2rem;
+      background: var(--card-bg);
+      position: relative;
+      z-index: 3;
+    }
+
+    .caption {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff, #d0d0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.4;
+    }
+
+    /* like section with advanced animation */
+    .like-section {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .like-btn:hover {
+      background: rgba(255, 107, 157, 0.1);
+      border-color: #ff6b9d;
+      transform: scale(1.05);
+    }
+
+    .heart-icon {
+      font-size: 2rem;
+      color: #ff6b9d;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px transparent);
+    }
+
+    .like-btn.liked .heart-icon {
+      animation: heartExplode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+      color: #ff3b6f;
+      filter: drop-shadow(0 0 15px #ff3b6f);
+    }
+
+    @keyframes heartExplode {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.8) rotate(10deg); }
+      50% { transform: scale(0.9) rotate(-5deg); }
+      70% { transform: scale(1.2) rotate(3deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    .like-count {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .like-btn:hover .like-count {
+      color: #ff6b9d;
+    }
+
+    /* like particles */
+    .like-particles {
+      position: relative;
+    }
+
+    .particle-heart {
+      position: absolute;
+      font-size: 1rem;
+      pointer-events: none;
+      animation: particleFly 1s ease-out forwards;
+    }
+
+    @keyframes particleFly {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* share button */
+    .share-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .share-btn:hover {
+      background: rgba(157, 123, 255, 0.1);
+      border-color: #9d7bff;
+      color: white;
+      transform: rotate(360deg);
+    }
+
+    /* loading skeleton animation */
+    .skeleton-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.05), 
+        transparent
+      );
+      animation: skeletonLoading 1.5s infinite;
+    }
+
+    @keyframes skeletonLoading {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* responsive design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .nav-content {
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .scroll-progress {
+        display: none;
+      }
+      
+      .post-card {
+        border-radius: 30px;
+      }
+      
+      .post-content {
+        padding: 1.5rem;
+      }
+    }
+
+    /* floating animation for cards */
+    .post-card:nth-child(odd) {
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+
+    .post-card:nth-child(even) {
+      animation: cardFloat 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(0.5deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="noise-bg"></div>
+  <div class="particles" id="particles"></div>
+  
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Stunning Navbar -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">ScrollLike</div>
+      <div class="nav-links">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Explore</a>
+        <a href="#" class="nav-link">Trending</a>
+        <a href="#" class="nav-link">Profile</a>
+      </div>
+      <div class="nav-icon">
+        <i class="fas fa-bolt"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="hero-title">
+      where <span>motion</span><br>meets <span>emotion</span>
+    </h1>
+    <p class="hero-subtitle">
+      Scroll through beautiful moments, feel the rhythm, collect the ones you love.
+    </p>
+  </section>
+
+  <!-- Main Feed -->
+  <main class="feed" id="feed"></main>
+
+  <script>
+    // script.js – advanced animation masterpiece
+    
+    (function() {
+      // ---------- STUNNING POST DATA ----------
+      const posts = [
+        {
+          id: 1,
+          img: 'https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'electric dreams in neon hues',
+          author: 'cyber.pulse',
+          date: '2h ago',
+          likes: 1234,
+          avatar: 'CP'
+        },
+        {
+          id: 2,
+          img: 'https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'midnight reflections • tokyo',
+          author: 'urban.shutter',
+          date: '5h ago',
+          likes: 892,
+          avatar: 'US'
+        },
+        {
+          id: 3,
+          img: 'https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'ethereal moments in purple',
+          author: 'dream.capture',
+          date: '8h ago',
+          likes: 2341,
+          avatar: 'DC'
+        },
+        {
+          id: 4,
+          img: 'https://images.pexels.com/photos/2166711/pexels-photo-2166711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'waves of serenity',
+          author: 'ocean.eye',
+          date: '12h ago',
+          likes: 567,
+          avatar: 'OE'
+        },
+        {
+          id: 5,
+          img: 'https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'neon avenue • midnight drive',
+          author: 'street.pulse',
+          date: '1d ago',
+          likes: 3456,
+          avatar: 'SP'
+        },
+        {
+          id: 6,
+          img: 'https://images.pexels.com/photos/3617456/pexels-photo-3617456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'purple haze • coffee dreams',
+          author: 'vibes.only',
+          date: '1d ago',
+          likes: 789,
+          avatar: 'VO'
+        }
+      ];
+
+      const feed = document.getElementById('feed');
+      
+      // create particle background
+      function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 20 + 's';
+          particle.style.animationDuration = (15 + Math.random() * 20) + 's';
+          particle.style.width = (2 + Math.random() * 6) + 'px';
+          particle.style.height = particle.style.width;
+          particle.style.background = `rgba(255, ${100 + Math.random() * 155}, ${150 + Math.random() * 105}, ${0.1 + Math.random() * 0.3})`;
+          particlesContainer.appendChild(particle);
+        }
+      }
+      
+      createParticles();
+
+      // create cards with loading skeleton first
+      function createSkeletonCards(count) {
+        for (let i = 0; i < count; i++) {
+          const skeleton = document.createElement('div');
+          skeleton.className = 'post-card skeleton-card';
+          skeleton.style.animationDelay = i * 0.1 + 's';
+          skeleton.innerHTML = `
+            <div class="img-container"></div>
+            <div class="post-content">
+              <div class="caption"></div>
+              <div class="like-section"></div>
+            </div>
+          `;
+          feed.appendChild(skeleton);
+        }
+      }
+
+      // initial skeletons
+      createSkeletonCards(3);
+
+      // load actual cards after delay
+      setTimeout(() => {
+        feed.innerHTML = '';
+        
+        posts.forEach((post, index) => {
+          const card = document.createElement('article');
+          card.className = 'post-card';
+          card.style.animationDelay = index * 0.15 + 's';
+          card.setAttribute('data-id', post.id);
+          card.setAttribute('data-likes', post.likes);
+
+          card.innerHTML = `
+            <div class="img-container">
+              <img class="post-img" src="${post.img}" alt="${post.caption}" loading="lazy">
+              <div class="img-overlay">
+                <div class="overlay-content">
+                  <div class="author">
+                    <div class="author-avatar">${post.avatar}</div>
+                    <div>
+                      <div class="author-name">@${post.author}</div>
+                      <div class="post-date">${post.date}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post-content">
+              <div class="caption">${post.caption}</div>
+              <div class="like-section">
+                <button class="like-btn">
+                  <i class="far fa-heart heart-icon"></i>
+                  <span class="like-count">${post.likes}</span>
+                </button>
+                <button class="share-btn">
+                  <i class="far fa-share-square"></i>
+                </button>
+              </div>
+            </div>
+          `;
+
+          feed.appendChild(card);
+        });
+
+        // initialize like buttons and observers after cards are loaded
+        initializeLikeButtons();
+        initializeObservers();
+      }, 2000);
+
+      // ---------- ADVANCED LIKE FUNCTIONALITY ----------
+      function initializeLikeButtons() {
+        const likeButtons = document.querySelectorAll('.like-btn');
+        
+        likeButtons.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const heartIcon = this.querySelector('.heart-icon');
+            const likeCount = this.querySelector('.like-count');
+            const wasLiked = this.classList.contains('liked');
+            
+            // heart explosion animation
+            heartIcon.style.animation = 'none';
+            heartIcon.offsetHeight; // trigger reflow
+            heartIcon.style.animation = 'heartExplode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5)';
+            
+            // create like particles
+            for (let i = 0; i < 8; i++) {
+              createLikeParticle(this);
+            }
+            
+            if (!wasLiked) {
+              // like
+              this.classList.add('liked');
+              heartIcon.classList.remove('far');
+              heartIcon.classList.add('fas');
+              let current = parseInt(likeCount.innerText.replace(',', ''));
+              likeCount.innerText = (current + 1).toLocaleString();
+              
+              // haptic feedback simulation
+              this.style.transform = 'scale(0.95)';
+              setTimeout(() => {
+                this.style.transform = '';
+              }, 100);
+            } else {
+              // unlike
+              this.classList.remove('liked');
+              heartIcon.classList.remove('fas');
+              heartIcon.classList.add('far');
+              let current = parseInt(likeCount.innerText.replace(',', ''));
+              likeCount.innerText = (current - 1).toLocaleString();
+            }
+          });
+        });
+      }
+
+      function createLikeParticle(button) {
+        const particle = document.createElement('i');
+        particle.className = 'fas fa-heart particle-heart';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.color = `hsl(${Math.random() * 20 + 340}, 100%, 70%)`;
+        particle.style.fontSize = (10 + Math.random() * 20) + 'px';
+        particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        
+        button.appendChild(particle);
+        
+        setTimeout(() => {
+          particle.remove();
+        }, 1000);
+      }
+
+      // ---------- ADVANCED SCROLL ANIMATIONS ----------
+      function initializeObservers() {
+        // Intersection Observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              
+              // add magnetic effect on visible
+              if (!entry.target.querySelector('.magnetic-field')) {
+                const field = document.createElement('div');
+                field.className = 'magnetic-field';
+                entry.target.appendChild(field);
+              }
+            }
+          });
+        }, {
+          threshold: 0.2,
+          rootMargin: '0px 0px -100px 0px'
+        });
+
+        document.querySelectorAll('.post-card').forEach(card => {
+          observer.observe(card);
+        });
+
+        // Parallax scroll effect
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const cards = document.querySelectorAll('.post-card');
+          
+          cards.forEach((card, index) => {
+            const speed = 0.05;
+            const yPos = -(scrolled * speed * (index % 3 + 1));
+            const img = card.querySelector('.post-img');
+            if (img) {
+              img.style.transform = `scale(1.1) translateY(${yPos}px)`;
+            }
+          });
+
+          // update progress bar
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolledProgress = (winScroll / height) * 100;
+          document.getElementById('progressBar').style.height = scrolledProgress + '%';
+        });
+      }
+
+      // initial observer call for any cards already loaded
+      setTimeout(() => {
+        initializeObservers();
+      }, 2500);
+
+      // smooth scroll reveal for first cards
+      setTimeout(() => {
+        document.querySelectorAll('.post-card').forEach(card => {
+          card.classList.add('visible');
+        });
+      }, 2200);
+
+      // mouse move parallax effect on cards
+      document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.post-card');
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+            const moveX = (x - rect.width / 2) * 0.02;
+            const moveY = (y - rect.height / 2) * 0.02;
+            card.style.transform = `translateY(-10px) scale(1.02) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
+          } else {
+            card.style.transform = '';
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
