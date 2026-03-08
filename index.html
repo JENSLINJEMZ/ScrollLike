@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScrollLike · next generation scrolling</title>
+  <title>ScrollLike · sliding dimensions</title>
   
   <!-- Google Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* ---------- style.css – ULTIMATE EDITION (PURE & MINIMAL) ---------- */
-    
+    /* ---------- ORIGINAL BACKGROUND ANIMATION ---------- */
     :root {
       --bg-primary: #0a0a0f;
       --bg-secondary: #12121a;
@@ -61,7 +60,7 @@
       background: linear-gradient(180deg, var(--accent-2), var(--accent-3));
     }
 
-    /* animated background with moving orbs */
+    /* ORIGINAL animated background with moving orbs */
     .background-orb {
       position: fixed;
       width: 100%;
@@ -115,7 +114,7 @@
       100% { transform: translate(100px, 100px) scale(1.2); }
     }
 
-    /* particle network */
+    /* ORIGINAL particle network */
     #particle-network {
       position: fixed;
       top: 0;
@@ -370,33 +369,42 @@
       50% { transform: translateX(-50%) translateY(10px); }
     }
 
-    /* ---------- MAIN FEED ---------- */
+    /* ---------- SLIDING FEED ---------- */
     .feed {
       max-width: 900px;
       margin: 0 auto;
       padding: 4rem 2rem;
       display: flex;
       flex-direction: column;
-      gap: 3rem;
+      gap: 4rem;
       position: relative;
       z-index: 10;
     }
 
+    /* SLIDING POST CARDS - alternating directions */
     .post-card {
       position: relative;
       background: var(--card-bg);
       border-radius: 40px;
       overflow: hidden;
       box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8);
-      transform: translateY(0) scale(1);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
       opacity: 0;
-      transform: translateY(50px);
+    }
+
+    /* Slide from LEFT for even cards */
+    .post-card:nth-child(even) {
+      transform: translateX(-100px) scale(0.95);
+    }
+
+    /* Slide from RIGHT for odd cards */
+    .post-card:nth-child(odd) {
+      transform: translateX(100px) scale(0.95);
     }
 
     .post-card.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0) scale(1);
     }
 
     /* magnetic border effect */
@@ -438,7 +446,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
       will-change: transform;
     }
 
@@ -446,32 +454,78 @@
       transform: scale(1.1);
     }
 
-    /* author info moved to top left of image */
-    .author-info {
+    /* direction badge */
+    .direction-badge {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
+      top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 107, 157, 0.5);
+      z-index: 5;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.5rem;
+      transform: translateX(20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .post-card:nth-child(even) .direction-badge {
+      left: 1.5rem;
+    }
+
+    .post-card:nth-child(odd) .direction-badge {
+      right: 1.5rem;
+    }
+
+    .post-card:hover .direction-badge {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .direction-badge i {
+      color: var(--accent-1);
+    }
+
+    /* author info overlay */
+    .author-overlay {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 4;
+      z-index: 5;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    }
+
+    .post-card:hover .author-overlay {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .author-avatar {
-      width: 35px;
-      height: 35px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 1rem;
       border: 2px solid white;
     }
 
@@ -483,15 +537,36 @@
     .author-name {
       font-weight: 600;
       color: white;
-      font-size: 0.9rem;
     }
 
     .post-date {
       color: rgba(255, 255, 255, 0.7);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
 
-    /* post content - ONLY like button */
+    /* slide track indicator */
+    .slide-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+      transform: scaleX(0);
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-origin: left;
+      z-index: 3;
+    }
+
+    .post-card:nth-child(odd) .slide-track {
+      transform-origin: right;
+    }
+
+    .post-card:hover .slide-track {
+      transform: scaleX(1);
+    }
+
+    /* post content */
     .post-content {
       padding: 2rem;
       position: relative;
@@ -509,11 +584,11 @@
       color: transparent;
     }
 
-    /* only like button - no other icons */
+    /* like button */
     .like-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 0.8rem 1.5rem;
+      background: rgba(255, 107, 157, 0.1);
+      border: 1px solid rgba(255, 107, 157, 0.3);
+      padding: 0.8rem 1.8rem;
       border-radius: 50px;
       display: inline-flex;
       align-items: center;
@@ -523,35 +598,57 @@
     }
 
     .like-btn:hover {
-      background: rgba(255, 107, 157, 0.1);
+      background: rgba(255, 107, 157, 0.2);
       border-color: var(--accent-1);
-      transform: scale(1.05);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 10px 30px -10px var(--accent-1);
     }
 
     .heart-icon {
       font-size: 1.8rem;
       color: var(--accent-1);
       transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px var(--accent-1));
     }
 
     .like-btn.liked .heart-icon {
-      animation: heartExplode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+      animation: heartSlide 0.6s cubic-bezier(0.23, 1, 0.32, 1);
       color: #ff3b6f;
       filter: drop-shadow(0 0 15px #ff3b6f);
     }
 
-    @keyframes heartExplode {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.8) rotate(15deg); }
-      50% { transform: scale(0.9) rotate(-10deg); }
-      70% { transform: scale(1.3) rotate(5deg); }
-      100% { transform: scale(1) rotate(0); }
+    @keyframes heartSlide {
+      0% { transform: translateX(0) scale(1); }
+      30% { transform: translateX(-15px) scale(1.5); }
+      50% { transform: translateX(8px) scale(0.9); }
+      70% { transform: translateX(-5px) scale(1.2); }
+      100% { transform: translateX(0) scale(1); }
     }
 
     .like-count {
       font-size: 1.2rem;
       font-weight: 600;
       color: white;
+    }
+
+    /* floating hearts */
+    .heart-particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1rem;
+      animation: heartFloat 1.5s ease-out forwards;
+      z-index: 100;
+    }
+
+    @keyframes heartFloat {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     /* floating action button */
@@ -579,6 +676,69 @@
       box-shadow: 0 20px 40px -5px var(--accent-2);
     }
 
+    /* loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-content {
+      text-align: center;
+    }
+
+    .loading-logo {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: loadingPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loadingPulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .loading-bar {
+      width: 300px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loading-bar::before {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      animation: loadingSlide 1.5s infinite ease-in-out;
+    }
+
+    @keyframes loadingSlide {
+      0% { left: -50%; }
+      100% { left: 100%; }
+    }
+
     /* responsive */
     @media (max-width: 768px) {
       .hero-title {
@@ -597,24 +757,57 @@
         padding: 1.5rem;
       }
       
+      .caption {
+        font-size: 1.2rem;
+      }
+      
       .fab {
         bottom: 1rem;
         right: 1rem;
+      }
+      
+      .direction-badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .author-overlay {
+        left: 1rem;
+        bottom: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Animated Background Orbs -->
+  <!-- ORIGINAL Animated Background Orbs -->
   <div class="background-orb">
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
   </div>
 
+  <!-- ORIGINAL Particle Network -->
   <canvas id="particle-network"></canvas>
 
-  <!-- Navbar (profile icon removed) -->
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-logo">ScrollLike</div>
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="nav-content">
       <div class="logo">ScrollLike</div>
@@ -627,7 +820,6 @@
       <div class="nav-icons">
         <div class="nav-icon"><i class="fas fa-search"></i></div>
         <div class="nav-icon"><i class="fas fa-bell"></i></div>
-        <!-- Profile icon removed -->
       </div>
     </div>
   </nav>
@@ -639,10 +831,10 @@
         scroll into the <span>infinite</span>
       </h1>
       <p class="hero-subtitle">
-        Where every scroll reveals a new story, every like creates a memory
+        Watch cards glide from left and right as you scroll through an endless stream of visual stories.
       </p>
       <div class="hero-cta">
-        <button class="cta-button">Start Exploring</button>
+        <button class="cta-button">Start Sliding</button>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -651,79 +843,96 @@
     </div>
   </section>
 
-  <!-- Main Feed -->
+  <!-- Main Feed with Sliding Cards -->
   <main class="feed" id="feed"></main>
 
   <!-- Floating Action Button -->
   <div class="fab" id="fab">
-    <i class="fas fa-plus"></i>
+    <i class="fas fa-arrow-up"></i>
   </div>
 
   <script>
-    // script.js – ULTIMATE EDITION (PURE & MINIMAL)
-    
     (function() {
-      // ---------- POST DATA (pure & simple) ----------
+      // ---------- SLIDING POSTS DATA ----------
       const posts = [
         {
           id: 1,
-          img: 'https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'electric dreams in neon hues',
+          img: 'https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'electric horizon • sliding into neon dreams',
           author: 'cyber.pulse',
           date: '2h ago',
           likes: 1234,
-          avatar: 'CP'
+          avatar: 'CP',
+          direction: '← slides from right'
         },
         {
           id: 2,
-          img: 'https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'midnight reflections • tokyo',
-          author: 'urban.shutter',
+          img: 'https://images.pexels.com/photos/3761509/pexels-photo-3761509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'tranquil waves • ocean meditation',
+          author: 'ocean.eye',
           date: '5h ago',
           likes: 892,
-          avatar: 'US'
+          avatar: 'OE',
+          direction: 'slides from left →'
         },
         {
           id: 3,
-          img: 'https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'ethereal moments in purple',
-          author: 'dream.capture',
+          img: 'https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'neon avenue • midnight pulse',
+          author: 'street.pulse',
           date: '8h ago',
           likes: 2341,
-          avatar: 'DC'
+          avatar: 'SP',
+          direction: '← slides from right'
         },
         {
           id: 4,
-          img: 'https://images.pexels.com/photos/2166711/pexels-photo-2166711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'waves of serenity',
-          author: 'ocean.eye',
+          img: 'https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'purple haze • ethereal moments',
+          author: 'dream.capture',
           date: '12h ago',
           likes: 567,
-          avatar: 'OE'
+          avatar: 'DC',
+          direction: 'slides from left →'
         },
         {
           id: 5,
-          img: 'https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'neon avenue • midnight drive',
-          author: 'street.pulse',
-          date: '1d ago',
-          likes: 3456,
-          avatar: 'SP'
-        },
-        {
-          id: 6,
           img: 'https://images.pexels.com/photos/3617456/pexels-photo-3617456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          caption: 'purple haze • coffee dreams',
+          caption: 'coffee dreams • morning rituals',
           author: 'vibes.only',
           date: '1d ago',
           likes: 789,
-          avatar: 'VO'
+          avatar: 'VO',
+          direction: '← slides from right'
+        },
+        {
+          id: 6,
+          img: 'https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'cyber symphony • digital dreams',
+          author: 'future.freq',
+          date: '1d ago',
+          likes: 3456,
+          avatar: 'FF',
+          direction: 'slides from left →'
+        },
+        {
+          id: 7,
+          img: 'https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          caption: 'cyber symphony • digital dreams',
+          author: 'future.freq',
+          date: '1d ago',
+          likes: 3456,
+          avatar: 'FF',
+          direction: 'slides from left →'
         }
       ];
 
       const feed = document.getElementById('feed');
-      
-      // ---------- PARTICLE NETWORK ----------
+      const loadingScreen = document.getElementById('loadingScreen');
+      const navbar = document.getElementById('navbar');
+      const fab = document.getElementById('fab');
+
+      // ---------- ORIGINAL PARTICLE NETWORK ----------
       function initParticleNetwork() {
         const canvas = document.getElementById('particle-network');
         const ctx = canvas.getContext('2d');
@@ -804,50 +1013,63 @@
       
       initParticleNetwork();
 
-      // ---------- CREATE POSTS (ONLY like button, no save/share) ----------
-      function createPosts() {
+      // Hide loading screen
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+      }, 2000);
+
+      // Create sliding cards
+      function createSlidingCards() {
         feed.innerHTML = '';
         
         posts.forEach((post, index) => {
           const card = document.createElement('article');
           card.className = 'post-card';
-          card.style.transitionDelay = index * 0.1 + 's';
           card.setAttribute('data-id', post.id);
+          
+          // Add direction-specific icon
+          const directionIcon = index % 2 === 0 ? 'fa-arrow-left' : 'fa-arrow-right';
 
           card.innerHTML = `
             <div class="img-container">
               <img class="post-img" src="${post.img}" alt="${post.caption}" loading="lazy">
               
-              <!-- Author info at top left of image -->
-              <div class="author-info">
+              <div class="direction-badge">
+                <i class="fas ${directionIcon}"></i>
+                ${post.direction}
+              </div>
+              
+              <div class="author-overlay">
                 <div class="author-avatar">${post.avatar}</div>
                 <div class="author-details">
                   <span class="author-name">@${post.author}</span>
                   <span class="post-date">${post.date}</span>
                 </div>
               </div>
+              
+              <div class="slide-track"></div>
             </div>
             
             <div class="post-content">
               <div class="caption">${post.caption}</div>
               
-              <!-- ONLY like button - no save, no share, no comment -->
               <button class="like-btn">
                 <i class="far fa-heart heart-icon"></i>
                 <span class="like-count">${post.likes.toLocaleString()}</span>
               </button>
             </div>
+            
           `;
 
           feed.appendChild(card);
         });
 
-        initializeFeatures();
+        initializeLikeButtons();
+        initializeScrollObserver();
       }
 
-      // ---------- INITIALIZE ALL FEATURES ----------
-      function initializeFeatures() {
-        // Like button functionality
+      // Like button functionality
+      function initializeLikeButtons() {
         const likeButtons = document.querySelectorAll('.like-btn');
         
         likeButtons.forEach(btn => {
@@ -860,12 +1082,6 @@
             // heart animation
             heartIcon.style.animation = 'none';
             heartIcon.offsetHeight;
-            heartIcon.style.animation = 'heartExplode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5)';
-            
-            // create floating hearts
-            for (let i = 0; i < 8; i++) {
-              createFloatingHeart(this);
-            }
             
             if (!wasLiked) {
               this.classList.add('liked');
@@ -873,6 +1089,11 @@
               heartIcon.classList.add('fas');
               let current = parseInt(likeCount.innerText.replace(',', ''));
               likeCount.innerText = (current + 1).toLocaleString();
+              
+              // create floating hearts
+              for (let i = 0; i < 8; i++) {
+                createFloatingHeart(this);
+              }
             } else {
               this.classList.remove('liked');
               heartIcon.classList.remove('fas');
@@ -882,16 +1103,43 @@
             }
           });
         });
+      }
 
-        // Intersection Observer for fade-in
+      // Floating hearts
+      function createFloatingHeart(element) {
+        const heart = document.createElement('i');
+        heart.className = 'fas fa-heart heart-particle';
+        
+        const x = (Math.random() - 0.5) * 200;
+        const y = -150 - Math.random() * 100;
+        
+        heart.style.setProperty('--x', x + 'px');
+        heart.style.setProperty('--y', y + 'px');
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.color = `hsl(${340 + Math.random() * 20}, 100%, 65%)`;
+        heart.style.fontSize = (12 + Math.random() * 20) + 'px';
+        
+        element.style.position = 'relative';
+        element.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 1500);
+      }
+
+      // Intersection Observer for sliding reveal
+      function initializeScrollObserver() {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+              
+              // Add direction-specific transition delay
+              const isEven = Array.from(entry.target.parentNode.children).indexOf(entry.target) % 2 === 0;
+              entry.target.style.transitionDelay = isEven ? '0.1s' : '0.2s';
             }
           });
         }, {
-          threshold: 0.2,
+          threshold: 0.3,
           rootMargin: '0px'
         });
 
@@ -899,58 +1147,29 @@
           observer.observe(card);
         });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-          const navbar = document.getElementById('navbar');
-          if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-          } else {
-            navbar.classList.remove('scrolled');
-          }
-        });
-      }
-
-      function createFloatingHeart(element) {
-        const heart = document.createElement('i');
-        heart.className = 'fas fa-heart';
-        heart.style.position = 'absolute';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.top = Math.random() * 100 + '%';
-        heart.style.color = `hsl(${340 + Math.random() * 20}, 100%, 70%)`;
-        heart.style.fontSize = (10 + Math.random() * 20) + 'px';
-        heart.style.pointerEvents = 'none';
-        heart.style.zIndex = '1000';
-        heart.style.animation = `floatUp ${1 + Math.random()}s ease-out forwards`;
-        
-        // Create keyframes if not exists
-        if (!document.getElementById('floatUpKeyframes')) {
-          const style = document.createElement('style');
-          style.id = 'floatUpKeyframes';
-          style.textContent = `
-            @keyframes floatUp {
-              0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-              }
-              100% {
-                transform: translate(${(Math.random() - 0.5) * 100}px, -150px) scale(0);
-                opacity: 0;
-              }
-            }
-          `;
-          document.head.appendChild(style);
-        }
-        
-        element.style.position = 'relative';
-        element.appendChild(heart);
-        setTimeout(() => heart.remove(), 1500);
-      }
-
-      // FAB click animation
-      document.getElementById('fab').addEventListener('click', function() {
-        this.style.transform = 'scale(0.9) rotate(90deg)';
+        // Pre-reveal first card
         setTimeout(() => {
-          this.style.transform = '';
+          const firstCard = document.querySelector('.post-card');
+          if (firstCard) {
+            firstCard.classList.add('visible');
+          }
+        }, 500);
+      }
+
+      // Navbar scroll effect
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // FAB click
+      fab.addEventListener('click', () => {
+        fab.style.transform = 'scale(0.9) rotate(90deg)';
+        setTimeout(() => {
+          fab.style.transform = '';
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -958,15 +1177,15 @@
         }, 200);
       });
 
-      // Smooth scroll for CTA
+      // CTA button
       document.querySelector('.cta-button').addEventListener('click', () => {
         document.querySelector('.feed').scrollIntoView({
           behavior: 'smooth'
         });
       });
 
-      // Initialize everything
-      createPosts();
+      // Initialize
+      createSlidingCards();
     })();
   </script>
 </body>
