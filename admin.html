@@ -3,258 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScrollLike · Admin Dashboard</title>
+  <title>ScrollLike · Admin</title>
   
-  <!-- Google Fonts & Icons -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
   <style>
-    /* ---------- SAME BEAUTIFUL BACKGROUND ---------- */
-    :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --glass-bg: rgba(18, 18, 26, 0.7);
-      --accent-1: #ff6b9d;
-      --accent-2: #9d7bff;
-      --accent-3: #6ed4b0;
-      --accent-4: #ffb86b;
-      --text-primary: #ffffff;
-      --text-secondary: #b0b0c0;
-      --card-bg: #16161f;
-      --shadow-color: rgba(0, 0, 0, 0.5);
-      --glow-color: rgba(157, 123, 255, 0.3);
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --info: #3b82f6;
-    }
-
+    /* ---------- SIMPLE & CLEAN VARIABLES ---------- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --bg-dark: #0b0d15;
+      --bg-card: #13161f;
+      --bg-hover: #1a1e2a;
+      --accent: #ff4d7d;
+      --accent-light: #ff7b9c;
+      --accent-purple: #a07cff;
+      --text-main: #ffffff;
+      --text-muted: #8f9bb5;
+      --border-light: rgba(255, 255, 255, 0.06);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.3);
+      --shadow-glow: 0 0 0 1px rgba(255, 77, 125, 0.2);
+    }
+
     body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.5;
     }
 
-    /* custom smooth scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
-      border-radius: 4px;
-    }
-
-    /* animated background with moving orbs */
-    .background-orb {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -2;
-      overflow: hidden;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.15;
-      animation: orbFloat 20s infinite alternate ease-in-out;
-    }
-
-    .orb1 {
-      width: 500px;
-      height: 500px;
-      background: var(--accent-1);
-      top: -100px;
-      left: -100px;
-      animation-duration: 25s;
-    }
-
-    .orb2 {
-      width: 600px;
-      height: 600px;
-      background: var(--accent-2);
-      bottom: -200px;
-      right: -100px;
-      animation-duration: 30s;
-      animation-delay: -5s;
-    }
-
-    .orb3 {
-      width: 400px;
-      height: 400px;
-      background: var(--accent-3);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-duration: 35s;
-      animation-delay: -10s;
-    }
-
-    @keyframes orbFloat {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(100px, 100px) scale(1.2); }
-    }
-
-    /* particle network */
-    #particle-network {
+    /* ---------- SIMPLE BACKGROUND ---------- */
+    .bg-gradient {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 77, 125, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 80%, rgba(160, 124, 255, 0.08) 0%, transparent 40%);
       z-index: -1;
-      pointer-events: none;
     }
 
-    /* ---------- ADMIN LAYOUT ---------- */
-    .admin-container {
+    /* ---------- CLEAN LAYOUT ---------- */
+    .app {
       display: flex;
       min-height: 100vh;
-      position: relative;
     }
 
-    /* ---------- SIDEBAR ---------- */
+    /* ---------- SIDEBAR - MINIMAL ---------- */
     .sidebar {
-      width: 280px;
-      background: rgba(10, 10, 15, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 2rem 1.5rem;
+      width: 260px;
+      background: rgba(19, 22, 31, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border-light);
+      padding: 2rem 1rem;
       position: fixed;
       height: 100vh;
-      overflow-y: auto;
-      z-index: 50;
-      transition: all 0.3s ease;
     }
 
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    .logo-area {
+      padding: 0 1rem 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .sidebar-logo {
+    .logo {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #fff, var(--accent-1), var(--accent-2));
+      background: linear-gradient(135deg, #fff, var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-    }
-
-    .sidebar-logo span {
-      font-size: 0.9rem;
-      display: block;
-      color: var(--text-secondary);
-      font-weight: 400;
+      letter-spacing: -0.5px;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 1.2rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: 16px;
-      margin-bottom: 0.5rem;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .nav-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-
-    .nav-item:hover::before {
-      opacity: 0.1;
-    }
-
-    .nav-item:hover {
-      color: white;
-      transform: translateX(5px);
-    }
-
-    .nav-item.active {
-      background: rgba(255, 107, 157, 0.1);
-      border: 1px solid rgba(255, 107, 157, 0.3);
-      color: white;
+      padding: 0.9rem 1rem;
+      border-radius: 14px;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
 
     .nav-item i {
       width: 24px;
       font-size: 1.2rem;
-      color: var(--accent-1);
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-hover);
+      color: white;
+    }
+
+    .nav-item:hover i {
+      color: var(--accent);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(255, 77, 125, 0.15), transparent);
+      color: white;
+      border-left: 3px solid var(--accent);
     }
 
     .nav-item.active i {
-      color: var(--accent-1);
+      color: var(--accent);
     }
 
     /* ---------- MAIN CONTENT ---------- */
-    .main-content {
+    .main {
       flex: 1;
-      margin-left: 280px;
+      margin-left: 260px;
       padding: 2rem;
     }
 
-    /* ---------- TOP BAR ---------- */
+    /* ---------- TOP BAR - SIMPLE ---------- */
     .top-bar {
-      background: rgba(18, 18, 26, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 30px;
-      padding: 1rem 2rem;
-      margin-bottom: 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 2.5rem;
     }
 
-    .page-title {
-      font-size: 1.5rem;
+    .page-title h1 {
+      font-size: 2rem;
       font-weight: 600;
     }
 
-    .page-title span {
-      color: var(--text-secondary);
+    .page-title p {
+      color: var(--text-muted);
       font-size: 0.9rem;
-      margin-left: 0.5rem;
+      margin-top: 0.2rem;
     }
 
     .admin-profile {
@@ -263,160 +156,119 @@
       gap: 1.5rem;
     }
 
-    .notification-badge {
+    .notif {
       position: relative;
       cursor: pointer;
     }
 
-    .notification-badge i {
+    .notif i {
       font-size: 1.3rem;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
+      color: var(--text-muted);
     }
 
-    .notification-badge:hover i {
-      color: var(--accent-1);
-      transform: scale(1.1);
-    }
-
-    .badge {
+    .notif-dot {
       position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: white;
     }
 
-    .admin-avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    .avatar {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
-    .admin-avatar:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px var(--accent-1);
-    }
-
-    /* ---------- STATS CARDS ---------- */
+    /* ---------- STATS CARDS - CLEAN ---------- */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
     .stat-card {
-      background: rgba(22, 28, 40, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 30px;
+      background: var(--bg-card);
+      border-radius: 24px;
       padding: 1.8rem;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 30px;
-      padding: 2px;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .stat-card:hover::before {
-      opacity: 1;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 30px 50px -30px var(--accent-2);
-    }
-
-    .stat-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 20px;
-      background: rgba(255, 107, 157, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-icon i {
-      font-size: 1.8rem;
-      color: var(--accent-1);
-    }
-
-    .stat-value {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-label {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .stat-trend {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: var(--success);
-      font-size: 0.9rem;
-    }
-
-    .stat-trend.down {
-      color: var(--danger);
-    }
-
-    /* ---------- CHARTS SECTION ---------- */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .chart-card {
-      background: rgba(22, 28, 40, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 30px;
-      padding: 1.8rem;
+      border: 1px solid var(--border-light);
       transition: all 0.3s ease;
     }
 
-    .chart-card:hover {
-      border-color: rgba(255, 107, 157, 0.2);
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 77, 125, 0.3);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 77, 125, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-icon i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .stat-change {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 30px;
+      color: #10b981;
+    }
+
+    .stat-change.down {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ---------- CHARTS SECTION - SIMPLE ---------- */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .chart-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid var(--border-light);
     }
 
     .chart-header {
@@ -426,49 +278,26 @@
       margin-bottom: 1.5rem;
     }
 
-    .chart-title {
-      font-size: 1.2rem;
-      font-weight: 600;
+    .chart-header h3 {
+      font-weight: 500;
+      font-size: 1.1rem;
     }
 
-    .chart-actions {
-      display: flex;
-      gap: 0.5rem;
+    .chart-header span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
-    .chart-btn {
-      padding: 0.4rem 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 30px;
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .chart-btn:hover {
-      background: rgba(255, 107, 157, 0.1);
-      border-color: var(--accent-1);
-      color: white;
-    }
-
-    .chart-btn.active {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      border-color: transparent;
-      color: white;
-    }
-
-    /* ---------- SIMULATED CHART BARS ---------- */
-    .chart-bars {
+    /* Simple bars */
+    .bars {
       display: flex;
       align-items: flex-end;
       gap: 1rem;
-      height: 200px;
+      height: 180px;
       margin-top: 1rem;
     }
 
-    .bar-container {
+    .bar-item {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -478,29 +307,17 @@
 
     .bar {
       width: 100%;
-      background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
-      border-radius: 20px 20px 8px 8px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-purple));
+      border-radius: 12px 12px 6px 6px;
       transition: height 0.5s ease;
-      position: relative;
-      animation: barGrow 1s ease-out;
-    }
-
-    @keyframes barGrow {
-      from { height: 0; }
-      to { height: var(--height); }
     }
 
     .bar-label {
       font-size: 0.8rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
     }
 
-    .bar-value {
-      font-size: 0.75rem;
-      color: var(--accent-1);
-    }
-
-    /* ---------- PIE CHART SIMULATION ---------- */
+    /* Simple pie */
     .pie-container {
       display: flex;
       align-items: center;
@@ -510,75 +327,153 @@
     }
 
     .pie {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       background: conic-gradient(
-        var(--accent-1) 0% 45%,
-        var(--accent-2) 45% 70%,
-        var(--accent-3) 70% 85%,
-        var(--accent-4) 85% 100%
+        var(--accent) 0% 45%,
+        var(--accent-purple) 45% 70%,
+        #6ed4b0 70% 85%,
+        #ffb86b 85% 100%
       );
-      animation: pieSpin 10s linear infinite;
-    }
-
-    @keyframes pieSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
     }
 
     .pie-legend {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       font-size: 0.9rem;
     }
 
-    .legend-color {
-      width: 12px;
-      height: 12px;
+    .color-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 4px;
     }
 
-    /* ---------- RECENT POSTS TABLE ---------- */
-    .recent-posts {
-      background: rgba(22, 28, 40, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 30px;
-      padding: 1.8rem;
-      margin-bottom: 2rem;
-    }
-
-    .table-header {
+    /* ---------- IMAGE MANAGEMENT SECTION ---------- */
+    .section-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1.5rem;
     }
 
-    .table-title {
-      font-size: 1.2rem;
-      font-weight: 600;
+    .section-title h2 {
+      font-size: 1.4rem;
+      font-weight: 500;
     }
 
-    .view-all {
-      color: var(--accent-1);
-      text-decoration: none;
-      font-size: 0.9rem;
+    .upload-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .view-all:hover {
-      color: var(--accent-2);
-      transform: translateX(5px);
+    .upload-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px var(--accent);
+    }
+
+    /* Image grid */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .image-preview {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .image-card:hover .image-preview {
+      transform: scale(1.05);
+    }
+
+    .image-info {
+      padding: 1.2rem;
+    }
+
+    .image-title {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .image-stats {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .image-stats i {
+      color: var(--accent);
+      margin-right: 0.3rem;
+    }
+
+    .image-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .image-action {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .image-action:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- ANALYTICS TABLE ---------- */
+    .analytics-table {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-light);
     }
 
     table {
@@ -589,25 +484,23 @@
     th {
       text-align: left;
       padding: 1rem 0.5rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-weight: 500;
       font-size: 0.9rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--border-light);
     }
 
     td {
       padding: 1rem 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
     }
 
     tr:hover td {
       background: rgba(255, 255, 255, 0.02);
-    }
-
-    .post-info {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
     }
 
     .post-thumb {
@@ -617,99 +510,33 @@
       object-fit: cover;
     }
 
-    .post-title {
-      font-weight: 500;
-    }
-
-    .status-badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 30px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .status-badge.published {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-
-    .status-badge.draft {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--warning);
-      border: 1px solid rgba(245, 158, 11, 0.2);
-    }
-
-    .action-btns {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .action-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .action-btn:hover {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      color: white;
-      transform: scale(1.1);
-      border-color: transparent;
-    }
-
-    /* ---------- QUICK ACTIONS ---------- */
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .action-card {
-      background: rgba(22, 28, 40, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 30px;
-      padding: 1.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .action-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: var(--accent-1);
-      box-shadow: 0 30px 50px -30px var(--accent-1);
-    }
-
-    .action-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    .post-cell {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      font-size: 1.8rem;
-      color: white;
+      gap: 1rem;
     }
 
-    .action-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
+    .like-count {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    .action-desc {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
+    .like-count i {
+      color: var(--accent);
+    }
+
+    .status {
+      padding: 0.3rem 0.8rem;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 30px;
+      color: #10b981;
+      font-size: 0.85rem;
+    }
+
+    .status.draft {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
     }
 
     /* ---------- RESPONSIVE ---------- */
@@ -718,233 +545,203 @@
         grid-template-columns: repeat(2, 1fr);
       }
       
-      .charts-grid {
-        grid-template-columns: 1fr;
+      .image-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
     @media (max-width: 768px) {
       .sidebar {
-        width: 80px;
+        width: 70px;
         padding: 2rem 0.5rem;
       }
       
-      .sidebar-header {
-        justify-content: center;
-      }
-      
-      .sidebar-logo span,
+      .logo-area span,
       .nav-item span {
         display: none;
       }
       
-      .main-content {
-        margin-left: 80px;
-      }
-      
-      .nav-item {
-        justify-content: center;
-      }
-      
-      .nav-item i {
-        margin: 0;
+      .main {
+        margin-left: 70px;
       }
       
       .stats-grid {
         grid-template-columns: 1fr;
       }
       
-      .quick-actions {
+      .charts-row {
         grid-template-columns: 1fr;
+      }
+      
+      .image-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <!-- Same Beautiful Background -->
-  <div class="background-orb">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-  </div>
+  <div class="bg-gradient"></div>
 
-  <canvas id="particle-network"></canvas>
-
-  <!-- Admin Container -->
-  <div class="admin-container">
+  <div class="app">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          ScrollLike
-          <span>admin</span>
-        </div>
+      <div class="logo-area">
+        <div class="logo">ScrollLike</div>
       </div>
       
       <nav>
-        <a href="#" class="nav-item active">
-          <i class="fas fa-dashboard"></i>
+        <div class="nav-item active">
+          <i class="fas fa-chart-pie"></i>
           <span>Dashboard</span>
-        </a>
-        <a href="#" class="nav-item">
+        </div>
+        <div class="nav-item">
           <i class="fas fa-image"></i>
-          <span>Posts</span>
-        </a>
-        <a href="#" class="nav-item">
-          <i class="fas fa-users"></i>
-          <span>Users</span>
-        </a>
-        <a href="#" class="nav-item">
+          <span>Images</span>
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-heart"></i>
+          <span>Likes</span>
+        </div>
+        <div class="nav-item">
           <i class="fas fa-chart-line"></i>
           <span>Analytics</span>
-        </a>
-        <a href="#" class="nav-item">
-          <i class="fas fa-comment"></i>
-          <span>Comments</span>
-        </a>
-        <a href="#" class="nav-item">
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-upload"></i>
+          <span>Upload</span>
+        </div>
+        <div class="nav-item">
           <i class="fas fa-gear"></i>
           <span>Settings</span>
-        </a>
+        </div>
       </nav>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main">
       <!-- Top Bar -->
       <div class="top-bar">
         <div class="page-title">
-          Dashboard <span>overview & analytics</span>
+          <h1>Dashboard</h1>
+          <p>Welcome back, Admin</p>
         </div>
         <div class="admin-profile">
-          <div class="notification-badge">
+          <div class="notif">
             <i class="far fa-bell"></i>
-            <span class="badge">3</span>
+            <span class="notif-dot"></span>
           </div>
-          <div class="admin-avatar">AD</div>
+          <div class="avatar">A</div>
         </div>
       </div>
 
       <!-- Stats Cards -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-image"></i>
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-image"></i>
+            </div>
+            <span class="stat-change">+12%</span>
           </div>
-          <div class="stat-value">1,234</div>
-          <div class="stat-label">Total Posts</div>
-          <div class="stat-trend">
-            <i class="fas fa-arrow-up"></i> 12%
-          </div>
+          <div class="stat-number">1,482</div>
+          <div class="stat-label">Total Images</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-heart"></i>
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <span class="stat-change">+8%</span>
           </div>
-          <div class="stat-value">45.2K</div>
+          <div class="stat-number">45.2K</div>
           <div class="stat-label">Total Likes</div>
-          <div class="stat-trend">
-            <i class="fas fa-arrow-up"></i> 8%
-          </div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-users"></i>
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <span class="stat-change">+23%</span>
           </div>
-          <div class="stat-value">892</div>
+          <div class="stat-number">128.4K</div>
+          <div class="stat-label">Total Views</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <span class="stat-change down">-3%</span>
+          </div>
+          <div class="stat-number">892</div>
           <div class="stat-label">Active Users</div>
-          <div class="stat-trend">
-            <i class="fas fa-arrow-up"></i> 5%
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-comment"></i>
-          </div>
-          <div class="stat-value">3.2K</div>
-          <div class="stat-label">Comments</div>
-          <div class="stat-trend down">
-            <i class="fas fa-arrow-down"></i> 3%
-          </div>
         </div>
       </div>
 
-      <!-- Charts Section -->
-      <div class="charts-grid">
-        <!-- Bar Chart -->
+      <!-- Charts -->
+      <div class="charts-row">
         <div class="chart-card">
           <div class="chart-header">
-            <div class="chart-title">Weekly Activity</div>
-            <div class="chart-actions">
-              <button class="chart-btn active">Week</button>
-              <button class="chart-btn">Month</button>
-              <button class="chart-btn">Year</button>
-            </div>
+            <h3>Weekly Activity</h3>
+            <span>Last 7 days</span>
           </div>
-          <div class="chart-bars">
-            <div class="bar-container">
-              <div class="bar" style="height: 120px"></div>
-              <span class="bar-label">Mon</span>
-              <span class="bar-value">1.2K</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="height: 160px"></div>
-              <span class="bar-label">Tue</span>
-              <span class="bar-value">1.8K</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="height: 140px"></div>
-              <span class="bar-label">Wed</span>
-              <span class="bar-value">1.5K</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="height: 180px"></div>
-              <span class="bar-label">Thu</span>
-              <span class="bar-value">2.1K</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="height: 200px"></div>
-              <span class="bar-label">Fri</span>
-              <span class="bar-value">2.4K</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="height: 170px"></div>
-              <span class="bar-label">Sat</span>
-              <span class="bar-value">1.9K</span>
-            </div>
-            <div class="bar-container">
+          <div class="bars">
+            <div class="bar-item">
               <div class="bar" style="height: 100px"></div>
+              <span class="bar-label">Mon</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 140px"></div>
+              <span class="bar-label">Tue</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 120px"></div>
+              <span class="bar-label">Wed</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 160px"></div>
+              <span class="bar-label">Thu</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 180px"></div>
+              <span class="bar-label">Fri</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 150px"></div>
+              <span class="bar-label">Sat</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 90px"></div>
               <span class="bar-label">Sun</span>
-              <span class="bar-value">0.9K</span>
             </div>
           </div>
         </div>
 
-        <!-- Pie Chart -->
         <div class="chart-card">
           <div class="chart-header">
-            <div class="chart-title">Content Distribution</div>
+            <h3>Content Distribution</h3>
+            <span>By type</span>
           </div>
           <div class="pie-container">
             <div class="pie"></div>
             <div class="pie-legend">
               <div class="legend-item">
-                <div class="legend-color" style="background: var(--accent-1)"></div>
+                <div class="color-dot" style="background: var(--accent);"></div>
                 <span>Photos (45%)</span>
               </div>
               <div class="legend-item">
-                <div class="legend-color" style="background: var(--accent-2)"></div>
+                <div class="color-dot" style="background: var(--accent-purple);"></div>
                 <span>Videos (25%)</span>
               </div>
               <div class="legend-item">
-                <div class="legend-color" style="background: var(--accent-3)"></div>
+                <div class="color-dot" style="background: #6ed4b0;"></div>
                 <span>Art (15%)</span>
               </div>
               <div class="legend-item">
-                <div class="legend-color" style="background: var(--accent-4)"></div>
+                <div class="color-dot" style="background: #ffb86b;"></div>
                 <span>Text (15%)</span>
               </div>
             </div>
@@ -952,20 +749,95 @@
         </div>
       </div>
 
-      <!-- Recent Posts Table -->
-      <div class="recent-posts">
-        <div class="table-header">
-          <div class="table-title">Recent Posts</div>
-          <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+      <!-- Image Management Section -->
+      <div class="section-title">
+        <h2>Recent Uploads</h2>
+        <button class="upload-btn">
+          <i class="fas fa-cloud-upload-alt"></i>
+          Upload New Image
+        </button>
+      </div>
+
+      <div class="image-grid">
+        <div class="image-card">
+          <img src="https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=400" alt="post" class="image-preview">
+          <div class="image-info">
+            <div class="image-title">Neon Dreams</div>
+            <div class="image-stats">
+              <span><i class="fas fa-heart"></i> 1.2K</span>
+              <span><i class="fas fa-eye"></i> 3.4K</span>
+            </div>
+            <div class="image-actions">
+              <button class="image-action"><i class="fas fa-edit"></i> Edit</button>
+              <button class="image-action"><i class="fas fa-trash"></i> Delete</button>
+              <button class="image-action"><i class="fas fa-chart-line"></i> Stats</button>
+            </div>
+          </div>
         </div>
-        
+
+        <div class="image-card">
+          <img src="https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=400" alt="post" class="image-preview">
+          <div class="image-info">
+            <div class="image-title">Tokyo Nights</div>
+            <div class="image-stats">
+              <span><i class="fas fa-heart"></i> 892</span>
+              <span><i class="fas fa-eye"></i> 2.1K</span>
+            </div>
+            <div class="image-actions">
+              <button class="image-action"><i class="fas fa-edit"></i> Edit</button>
+              <button class="image-action"><i class="fas fa-trash"></i> Delete</button>
+              <button class="image-action"><i class="fas fa-chart-line"></i> Stats</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img src="https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=400" alt="post" class="image-preview">
+          <div class="image-info">
+            <div class="image-title">Purple Haze</div>
+            <div class="image-stats">
+              <span><i class="fas fa-heart"></i> 2.3K</span>
+              <span><i class="fas fa-eye"></i> 5.2K</span>
+            </div>
+            <div class="image-actions">
+              <button class="image-action"><i class="fas fa-edit"></i> Edit</button>
+              <button class="image-action"><i class="fas fa-trash"></i> Delete</button>
+              <button class="image-action"><i class="fas fa-chart-line"></i> Stats</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img src="https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=400" alt="post" class="image-preview">
+          <div class="image-info">
+            <div class="image-title">Neon Avenue</div>
+            <div class="image-stats">
+              <span><i class="fas fa-heart"></i> 3.4K</span>
+              <span><i class="fas fa-eye"></i> 7.8K</span>
+            </div>
+            <div class="image-actions">
+              <button class="image-action"><i class="fas fa-edit"></i> Edit</button>
+              <button class="image-action"><i class="fas fa-trash"></i> Delete</button>
+              <button class="image-action"><i class="fas fa-chart-line"></i> Stats</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytics Table -->
+      <div class="section-title">
+        <h2>Top Performing Images</h2>
+        <span style="color: var(--text-muted);">By likes & views</span>
+      </div>
+
+      <div class="analytics-table">
         <table>
           <thead>
             <tr>
-              <th>Post</th>
+              <th>Image</th>
               <th>Author</th>
               <th>Likes</th>
-              <th>Comments</th>
+              <th>Views</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -973,178 +845,109 @@
           <tbody>
             <tr>
               <td>
-                <div class="post-info">
-                  <img src="https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=200" alt="post" class="post-thumb">
-                  <span class="post-title">Neon Dreams</span>
+                <div class="post-cell">
+                  <img src="https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=200" class="post-thumb">
+                  <span>Neon Dreams</span>
                 </div>
               </td>
               <td>@cyber.pulse</td>
-              <td>1.2K</td>
-              <td>89</td>
-              <td><span class="status-badge published">Published</span></td>
               <td>
-                <div class="action-btns">
-                  <button class="action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn"><i class="fas fa-trash"></i></button>
-                  <button class="action-btn"><i class="fas fa-chart-line"></i></button>
-                </div>
+                <span class="like-count">
+                  <i class="fas fa-heart"></i> 1,234
+                </span>
+              </td>
+              <td>3,456</td>
+              <td><span class="status">Published</span></td>
+              <td>
+                <i class="fas fa-edit" style="margin-right: 1rem; cursor: pointer; color: var(--text-muted);"></i>
+                <i class="fas fa-trash" style="cursor: pointer; color: var(--text-muted);"></i>
               </td>
             </tr>
             <tr>
               <td>
-                <div class="post-info">
-                  <img src="https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=200" alt="post" class="post-thumb">
-                  <span class="post-title">Tokyo Midnight</span>
+                <div class="post-cell">
+                  <img src="https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=200" class="post-thumb">
+                  <span>Tokyo Nights</span>
                 </div>
               </td>
               <td>@urban.shutter</td>
-              <td>892</td>
-              <td>45</td>
-              <td><span class="status-badge published">Published</span></td>
               <td>
-                <div class="action-btns">
-                  <button class="action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn"><i class="fas fa-trash"></i></button>
-                  <button class="action-btn"><i class="fas fa-chart-line"></i></button>
-                </div>
+                <span class="like-count">
+                  <i class="fas fa-heart"></i> 892
+                </span>
+              </td>
+              <td>2,101</td>
+              <td><span class="status">Published</span></td>
+              <td>
+                <i class="fas fa-edit" style="margin-right: 1rem; cursor: pointer; color: var(--text-muted);"></i>
+                <i class="fas fa-trash" style="cursor: pointer; color: var(--text-muted);"></i>
               </td>
             </tr>
             <tr>
               <td>
-                <div class="post-info">
-                  <img src="https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=200" alt="post" class="post-thumb">
-                  <span class="post-title">Purple Haze</span>
+                <div class="post-cell">
+                  <img src="https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=200" class="post-thumb">
+                  <span>Purple Haze</span>
                 </div>
               </td>
               <td>@dream.capture</td>
-              <td>2.3K</td>
-              <td>156</td>
-              <td><span class="status-badge draft">Draft</span></td>
               <td>
-                <div class="action-btns">
-                  <button class="action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn"><i class="fas fa-trash"></i></button>
-                  <button class="action-btn"><i class="fas fa-chart-line"></i></button>
+                <span class="like-count">
+                  <i class="fas fa-heart"></i> 2,341
+                </span>
+              </td>
+              <td>5,678</td>
+              <td><span class="status">Published</span></td>
+              <td>
+                <i class="fas fa-edit" style="margin-right: 1rem; cursor: pointer; color: var(--text-muted);"></i>
+                <i class="fas fa-trash" style="cursor: pointer; color: var(--text-muted);"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="post-cell">
+                  <img src="https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=200" class="post-thumb">
+                  <span>Neon Avenue</span>
                 </div>
+              </td>
+              <td>@street.pulse</td>
+              <td>
+                <span class="like-count">
+                  <i class="fas fa-heart"></i> 3,456
+                </span>
+              </td>
+              <td>7,890</td>
+              <td><span class="status draft">Draft</span></td>
+              <td>
+                <i class="fas fa-edit" style="margin-right: 1rem; cursor: pointer; color: var(--text-muted);"></i>
+                <i class="fas fa-trash" style="cursor: pointer; color: var(--text-muted);"></i>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-plus"></i>
-          </div>
-          <div class="action-title">New Post</div>
-          <div class="action-desc">Create and publish new content</div>
-        </div>
-
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <div class="action-title">Manage Users</div>
-          <div class="action-desc">View and moderate users</div>
-        </div>
-
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-chart-simple"></i>
-          </div>
-          <div class="action-title">Analytics</div>
-          <div class="action-desc">View detailed reports</div>
-        </div>
-      </div>
     </main>
   </div>
 
   <script>
-    // Particle Network (same as before)
-    (function() {
-      const canvas = document.getElementById('particle-network');
-      const ctx = canvas.getContext('2d');
-      let width, height;
-      let particles = [];
-      
-      function resize() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-      }
-      
-      function createParticles() {
-        for (let i = 0; i < 50; i++) {
-          particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            radius: Math.random() * 2 + 1
-          });
-        }
-      }
-      
-      function draw() {
-        ctx.clearRect(0, 0, width, height);
-        
-        // draw connections
-        ctx.strokeStyle = 'rgba(157, 123, 255, 0.1)';
-        ctx.lineWidth = 0.5;
-        
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < 150) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(157, 123, 255, ${0.1 * (1 - distance/150)})`;
-              ctx.stroke();
-            }
-          }
-        }
-        
-        // draw particles
-        particles.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 107, 157, 0.5)';
-          ctx.fill();
-          
-          // update position
-          p.x += p.vx;
-          p.y += p.vy;
-          
-          // bounce off edges
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
-        });
-        
-        requestAnimationFrame(draw);
-      }
-      
-      resize();
-      createParticles();
-      draw();
-      
-      window.addEventListener('resize', () => {
-        resize();
-        particles = [];
-        createParticles();
+    // Simple and clean - just what you need
+    document.querySelectorAll('.image-action, .nav-item, .upload-btn').forEach(el => {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Just for demo - you can add functionality later
+        console.log('Clicked:', this);
       });
+    });
 
-      // Navbar scroll effect (for admin - optional)
-      window.addEventListener('scroll', () => {
-        // You can add scroll effects here if needed
+    // Simple hover effect for bars
+    document.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', function() {
+        this.style.filter = 'brightness(1.2)';
       });
-    })();
+      bar.addEventListener('mouseleave', function() {
+        this.style.filter = 'brightness(1)';
+      });
+    });
   </script>
 </body>
 </html>
